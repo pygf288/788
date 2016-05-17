@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://static.jiaju.com/jiaju/com/js/dojquery-s-min.js"></script>
+
+</head>
+<body>
+	<div id="g_choose">
+		<label><input name="" type="checkbox" value="全选" id="chk_all" class="all" />全选 </label>
+		<label><input name="chk_list" type="checkbox" value="苹果" />苹果 </label> 
+		<label><input name="chk_list" type="checkbox" value="桃子" />桃子 </label> 
+		<label><input name="chk_list" type="checkbox" value="香蕉" />香蕉 </label> 
+		<label><input name="chk_list" type="checkbox" value="梨" />梨 </label> 
+		<input type="hidden" name="" value="" id="g_source">
+	</div>
+	<script type="text/javascript">
+	$(function(){
+		var str="";
+		var reg=/,$/gi;
+		var isChecked = false; 
+		$("#chk_all").click(function(){
+     		$("input[name='chk_list']").attr("checked",$(this).attr("checked"));
+     		if($(this).attr("checked")==true){
+     			checklist();
+     		}else{
+     			$("#g_source").val("");
+     		}
+		});
+		$("#g_choose input").not(".all").click(function(){
+			str="";
+			$("#chk_all").attr("checked",false);
+			$("input[name='chk_list']").each(function(){
+			if($(this).attr("checked")==true){
+				 str = str + $(this).val()+",";
+			}
+			if($(this).attr("checked")==false){
+					isChecked=false;
+					return false;
+				}else{
+					isChecked = true;
+				}
+			});
+			str=str.replace(reg,"");
+			$("#g_source").val(str);
+			if(isChecked){
+				$("#chk_all").attr("checked",true);
+			}
+		});
+		function checklist(){
+			str="";
+			$("input[name='chk_list']").each(function(){
+				str += $(this).val()+",";
+			});
+			str=str.replace(reg,"");
+			$("#g_source").val(str);
+		}
+	})
+	</script>
+</body>
+</html>
