@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		/*重写原型*/
+		BaseCalculator = function(){
+			this.decimalDigits = 2;
+		}
+		BaseCalculator.prototype = function(){
+			add = function(x,y){
+				return x+y;
+			},
+			sub = function(x,y){
+				return x-y;
+			}
+		}
+		BaseCalculator.prototype ={
+			add:function(x,y){
+				return x+y;
+			},
+			sub :function(x,y){
+				return x-y
+			}
+		}
+		var Calculator = function(){
+			this.tax = 5;
+		}
+		Calculator.prototype = new BaseCalculator();
+		Calculator.prototype.add = function(x,y){
+			return x+y+this.tax;
+		}
+		var c = new Calculator();
+		alert(c.add(1,1));
+	</script>
+
+</head>
+<body>
+	
+</body>
+</html>
