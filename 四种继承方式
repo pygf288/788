@@ -1,0 +1,121 @@
+js是一个很自由的语言，没有强类型的语言的那种限制，实现一个功能往往有很多做法。继承就是其中的一个，在js中继承大概可以分为四大类，上面一篇文章也提及过一些，下面开始详细说说js的继承。
+
+1、原型继承---最简单，最常用的
+
+      
+
+复制代码
+function funcA(){
+    this.show=function(){
+        console.log("hello");
+    }
+}
+function funcB(){
+
+}
+funcB.prototype=new funcA();
+var b=new funcB();
+b.show();
+复制代码
+这里是运用原型链的特性实现，缺点也是很明显，如果继承的层次比较多的话，修改顶层的原型的方法，会对下面所有的对象产生影响。
+
+2、原型冒充：
+
+   
+
+复制代码
+function funcA(age){
+    this.name="xiaoxiao";
+    this.age=age;
+    this.show=function(){
+        console.log(this.name+this.age)
+
+    }
+}
+function funcB(){
+    this.parent=funcA;
+    this.parent(40);
+    delete this.parent;
+
+}
+var b=new funcB();
+b.show();
+复制代码
+这个继承的方法很好理解，只不过把funcA中的代码都拿到funcB中执行一下，其实可以解释成：
+
+复制代码
+function funcA(age){
+    this.name="xiaoxiao";
+    this.age=age;
+    this.show=function(){
+        console.log(this.name+this.age)
+
+    }
+}
+function funcB(){
+    // this.parent=funcA;
+    // this.parent(40);
+    // delete this.parent;
+         //其实上面的过程只不是是把funcA搬过来
+    this.name="xiaoxiao";
+    this.age=age;
+    this.show=function(){
+        console.log(this.name+this.age)
+
+    }
+
+}
+var b=new funcB();
+b.show();
+复制代码
+明白了吗？
+
+ 
+
+3、call和apply
+
+这个在上面一篇文章到也提到了，也详细说明了原因，相信如果认真把原型的理解了这个就so easy.
+
+下面不多说了，看看代码：
+
+复制代码
+function funcA() {
+    this.show = function(str) {
+        console.log(str);
+    }
+}
+function funcB() {
+    this.read = function() {}
+}
+var a = new funcA();
+var b = new funcB();
+ funcA.call(b);//use call
+a.show("a");
+b.show("b");
+复制代码
+call和apply效果是一样的，不过是传参方式上不一样，但是推荐用call，因为apply的效率会低很多，至于为什么，后面会说到。
+
+4、复制继承
+
+复制代码
+function funcA(){
+    this.name="hello";
+    this.show=function(){
+        console.log(this.name);
+    }
+}
+function funcB(){
+    this.extend=function(o){
+        for(var p in o){
+            this[p]=o[p];
+        }
+    }
+}
+var a=new funcA();
+var b=new funcB();
+b.extend(a);
+b.show();
+复制代码
+这个类似于jquery的extend的方法，原理是把a中的属性遍历到b中。
+
+好了，以上是今天的内容，比较简单，只要善于总结，这些相信在你的学习中会有帮助。下次写上下文中的this.
