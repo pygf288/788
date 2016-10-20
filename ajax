@@ -1,0 +1,53 @@
+// JavaScript Document
+
+define([],function(require, exports, module){
+	
+	// 获取数据
+	var fnGetData = function(callback){
+		
+		$.ajax({
+			url:'xx',
+			dataType:"json",
+			success:function(d){
+				callback && callback(d);		
+			}	
+		});
+			
+	};
+	
+	// 插入页面DOM
+	var fnInsertDom = function(d){
+		
+		var oUl = $('mylist');
+		var aData = [],
+			sHtml  = '',
+			i = 0;
+		
+		if(d.status==1){
+			
+			aData =  d.data;	
+		}
+		
+		for(; i < aData.length; i++)
+		{
+			sHtml += '<li>'+aData[i].name+'</li>';		
+		}
+		
+		
+		oUl.append(sHtml);
+		
+	};
+	
+	// 绑定事件
+	$btn.on('click',function(){
+		fnGetData(function(d){
+			fnInsertDom(d);	
+		});
+	});
+	
+	
+	
+});
+
+
+require('./btn');
