@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var myArray = [10,20,50,2,8,3];
+	   for (var i = 0; i < 6;i++){
+                for (var j = i+1; j < 6; j++)
+                {
+                    if (myArray[i] > myArray[j])
+                    {
+                        var temp = myArray[i];
+                        myArray[i] = myArray[j];
+                        myArray[j] = temp;
+                    }
+                }
+            }
+            console.log(myArray);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
