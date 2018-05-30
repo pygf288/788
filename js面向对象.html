@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script type="text/javascript">
+	//js面向对象
+	/*
+	在js中，有对象，没有类，其实js的面向对象非常灵活，比起静态语法来，达到异想天开的效果
+	在很多语言中，类-->对象 ，而在js中，对象不依赖于类而存在
+	js的对象只是一个“字典”，就像php中的关联数组
+	直接造对象，不要类
+	 */
+	var ori = {};//地球上最原始的蛋白质，这就是一个对象
+	var c = {cell:1};//单细胞动物
+	var chicken = {leg:2,};
+
+	function Girl(name,bf){
+		this.name = name;
+		this.love = bf;
+	}
+	var daiyu = new Girl("林","贾");
+
+
+
+	//让name不让外部访问
+	
+	function Boy(name,gf){
+		var secret = gf;//私有变量
+		this.name = name;
+		this.showlove = function(){
+			return secret;
+		}
+	}
+	var boy = new Boy("三三","菲菲");
+	alert(boy.showlove());
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
