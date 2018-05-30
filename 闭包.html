@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="http://static.7gz.com/jiaju/com/apph5/b/js/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript">
+		function closure(){
+			var sister = "飞飞";
+			var me = function(){
+				alert(sister);
+			}
+			return me;
+		}
+		function palace(){
+			var sister = "若兰";
+			var girl = closure();
+			girl();
+		}
+		palace();
+	</script>
+	<script type="text/javascript">
+	//闭包计数器
+	//多个人开发js程序，需要一个全局的计数器
+	//多个人的函数共用同一个计数器，计数器一直增长
+	/*解决办法：
+		1:设立一个全局变量
+		window.cnt = 0;
+		调用 ++ window.cnt 污染了全局变量
+		2.闭包维护一个别人污染不到的变量，做计数器
+	*/
+	function counter(){
+		var  cnt = 0;//当counter执行完毕后，除了返回的cnter函数
+		var cnter = function(){
+			return ++ cnt;
+		}
+		return cnter;
+	}
+	var inc = counter();
+	alert(inc());
+	alert(inc());
+	alert(inc());
+
+	//第二版，简化
+	var _cnt =(function(){
+		var cnt = 0;
+		return function(){
+			return ++cnt;
+		}
+	})();
+	alert(_cnt());
+	alert(_cnt());
+
+	//第三版本
+	//少使用全局变量
+	//1：统一放在一个全局对象上，jquery ->$
+	//2.每人用自己的命名空间
+//jq人计数器插件形式
+alert(1111);
+$.cnt = (function(){
+		var cnt = 0;
+		return function(){
+			return ++cnt;
+		}
+	})();
+	alert($.cnt());
+
+//第四个版本
+//个人命名空间
+alert("第四种方法，个人命名空间");
+var gj ={};
+gj.cnt = (function(){
+		var cnt = 0;
+		return function(){
+			return ++cnt;
+		}
+	})();
+	alert(gj.cnt());
+	alert(gj.cnt());
+	</script>
+}
+
+</head>
+<body>
+	
+</body>
+</html>
